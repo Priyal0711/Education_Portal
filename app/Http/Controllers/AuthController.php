@@ -106,12 +106,12 @@ class AuthController extends Controller
     }
     public function editUser($id)
     {
-        // Check if the user is authenticated before proceeding
+        
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        // Fetch the user data from the database
+        
         $user = User::findOrFail($id);
 
         return view('user.edit', compact('user'));
@@ -119,16 +119,16 @@ class AuthController extends Controller
 
     public function updateUser(Request $request, $id)
     {
-        // ... (rest of the updateUser method)
+       
     }
     public function deleteUser($id)
     {
-        // Check if the user is authenticated before proceeding
+        
         if (!Auth::check()) {
             return redirect()->route('login');
         }
 
-        // Fetch the user data from the database
+       
         $user = User::findOrFail($id);
 
         return view('user.delete', compact('user'));
