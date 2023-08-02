@@ -6,10 +6,19 @@
     <div class="col-md-8">
 
         <div class="card">
-            <div class="card-header">Login</div>
+            <div class="card-header">AddUser</div>
             <div class="card-body">
-                <form action="{{ route('login') }}" method="post">
+                <form action="{{ route('adduser') }}" method="post">
                     @csrf
+                    <div class="mb-3 row">
+                        <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
+                        <div class="col-md-6">
+                          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
+                            @if ($errors->has('name'))
+                                <span class="text-danger">{{ $errors->first('name') }}</span>
+                            @endif
+                        </div>
+                    </div>
                     <div class="mb-3 row">
                         <label for="email" class="col-md-4 col-form-label text-md-end text-start">Email Address</label>
                         <div class="col-md-6">
@@ -29,10 +38,13 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Login">
-                        <br>
-
-                        <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                        <label for="password_confirmation" class="col-md-4 col-form-label text-md-end text-start">Confirm Password</label>
+                        <div class="col-md-6">
+                          <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="AddUser">
                     </div>
                     
                 </form>
