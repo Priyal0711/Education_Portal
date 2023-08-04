@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use App\Models\Chapter;
 
 class SubjectController extends Controller
 {
@@ -52,4 +53,22 @@ class SubjectController extends Controller
         return redirect()->route('subject.show')->with('success', 'subject deleted successfully');
     }
 
+    public function assignChapters(Subject $subject)
+    {
+        $chapters = Chapter::all();
+        return view('subjects.assign_chapters', compact('subject', 'chapters'));
+    }
+
+    public function saveChapters(Request $request, Subject $subject)
+    {
+        $request->validate([
+            'chapters' => 'array',
+            'chapters.*' => 'exists:chapters,id',
+        ]);
+
+        $subject->chapters()->sync($request->input('chapters'));
+
+        return redirect()->route('subject.create')->with('success', 'Chapters assigned to subject successfully!');
+    }
 }
+

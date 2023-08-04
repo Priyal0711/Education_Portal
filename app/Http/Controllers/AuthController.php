@@ -117,23 +117,20 @@ class AuthController extends Controller
 
         return view('user.list', compact('users'));
     }
-    public function editUser($id)
-    {
+    // public function editUser($id)
+    // {
         
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
+    //     if (!Auth::check()) {
+    //         return redirect()->route('login');
+    //     }
 
         
-        $user = User::findOrFail($id);
+    //     $user = User::findOrFail($id);
 
-        return view('user.edit', compact('user'));
-    }
+    //     return view('user.edit', compact('user'));
+    // }
 
-    public function updateUser(Request $request, $id)
-    {
-       
-    }
+   
    
     public function delete($id)
     {
@@ -146,13 +143,13 @@ class AuthController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        return view('user.edit', compact('user'));
     }
 
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        // Update the user data based on the input fields from the edit form
+        
         $user->update($request->all());
 
         return redirect()->route('users.show', $user->id);
@@ -161,7 +158,7 @@ class AuthController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+        return view('user.show', compact('user'));
     }
 }
 

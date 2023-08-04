@@ -11,5 +11,8 @@ class Subject extends Model
     protected $table = 'subjects';
     protected $fillable = ['subject'];
 
-    
+    public function chapters()
+    {
+        return $this->belongsToMany(Chapter::class, 'assign_chapter_to_subject');
+    }  
 }

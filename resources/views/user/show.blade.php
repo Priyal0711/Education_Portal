@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>User Details</h1>
+    <h3>User Details</h3>
     <!-- Display user details here -->
     <p>Name: {{ $user->name }}</p>
     <p>Email: {{ $user->email }}</p>

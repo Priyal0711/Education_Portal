@@ -46,7 +46,7 @@
 
         .navbar button {
             background-color: #007bff;
-            color: #fff;
+            color: green;
             border: none;
             padding: 8px 12px;
             margin-right: 5px;
@@ -113,20 +113,19 @@
     </div>
     <div class="navbar">
                 
-        <button> <a href="{{ route('chapter.show') }}">Chapter</a> </button>
-        <button> <a href="{{ route('subject.show') }}">Subject</a> </button>
-        <button> <a href="{{ route('standard.show') }}">Standard</a> </button>
+        <button> <a href="{{ route('chapter.show') }}" style="color:white">Chapter</a> </button>
+        <button> <a href="{{ route('subject.show') }}" style="color:white">Subject</a> </button>
+        <button> <a href="{{ route('standard.show') }}" style="color:white">Standard</a> </button>
         
-            
         <div class="dropdown">
             <button class="dropbtn">Other Operations</button>
-                <div class="dropdown-content">
-                        <input type="submit" name="chap_sub" value="Assign Chapter to Subject">
-                        <input type="submit" name="sub_std" value="Assign Subject to Standard">
-                        <input type="submit" name="stud_std" value="Assign Student to standard">
-                    
-                </div>
+            <div class="dropdown-content">
+                    <button> <a href="{{ route('assign_chapter.show') }}" style="color:white">Assign Chapter to Subject</a> </button>
+                    <button> <a href="{{ route('assign_subject.show') }}" style="color:white">Assign Subject to Standard</a> </button>
+                    <button> <a href="{{ route('assign_student.show') }}" style="color:white">Assign Student to Standard</a> </button>
+            </div>
         </div>
+        
     </div>
 
 
