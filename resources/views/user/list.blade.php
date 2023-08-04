@@ -68,6 +68,8 @@
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Mobile</th> 
+            <th>City</th>   
             <th>Actions</th>
         </tr>
         @foreach($users as $user)
@@ -75,15 +77,14 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
+                <td>{{ $user->mobile }}</td> 
+                <td>{{ $user->city }}</td>  
 
                 <td class="action-buttons">
-                    <a href="{{ route('show-user', ['id' => $user->id]) }}">Show</a>
-                    <a href="{{ route('edit-user', ['id' => $user->id]) }}">Edit</a>
-                    <form action="{{ route('delete-user', ['id' => $user->id]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Delete</button>
-                    </form>         
+                    <a href="{{ route('users.show', $user->id) }}">Show</a> 
+                    <a href="{{ route('users.edit', $user->id) }}"> Edit </a>
+                    <a href="{{ route('delete-user', $user->id) }}">Delete</a>                    
+                    
                 </td>
             </tr>
         @endforeach

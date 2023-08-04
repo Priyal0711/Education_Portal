@@ -39,13 +39,21 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:250',
             'email' => 'required|email|max:250|unique:users',
-            'password' => 'required|min:3|confirmed'
+            'password' => 'required|min:3|confirmed',
+            'mobile' => 'required|min:10',
+            'city' => 'required',
+
+
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => \Hash::make($request->password)
+            'password' => \Hash::make($request->password),
+            'mobile' => $request->mobile,
+            'city' => $request->city,
+
+
         ]);
         
         //login user
@@ -65,13 +73,18 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:250',
             'email' => 'required|email|max:250|unique:users',
-            'password' => 'required|min:3|confirmed'
+            'password' => 'required|min:3|confirmed',
+            'mobile' => 'required|min:10',
+            'city' => 'required',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => \Hash::make($request->password)
+            'password' => \Hash::make($request->password),
+            'mobile' => $request->mobile,
+            'city' => $request->city,
+
         ]);
         
         //login user
@@ -121,19 +134,7 @@ class AuthController extends Controller
     {
        
     }
-    public function deleteUser($id)
-    {
-        
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-
-       
-        $user = User::findOrFail($id);
-
-        return view('user.delete', compact('user'));
-    }
-
+   
     public function delete($id)
     {
         $user=User::find($id);
@@ -142,5 +143,25 @@ class AuthController extends Controller
         
     }
 
-    
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        // Update the user data based on the input fields from the edit form
+        $user->update($request->all());
+
+        return redirect()->route('users.show', $user->id);
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.show', compact('user'));
+    }
 }
+

@@ -6,8 +6,8 @@
     <div class="col-md-8">
 
         <div class="card">
-            <div class="card-header">Register</div>
-            <div class="card-body">
+            <div style="display: flex; justify-content: center;" class="card-header"><h1>Register</h1></div>
+             <div class="card-body">
                 <form action="{{ route('register') }}" method="post">
                     @csrf
                     <div class="mb-3 row">
@@ -64,7 +64,10 @@
                     <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Register">
                     </div>
-                    <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Login</a>
+                    <div style="display: flex; justify-content: center;">
+                        <h6>Already registered?</h6>
+                        <a href="{{ route('login') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Login</a>
+                    </div>
                 </form>
             </div>
         </div>
