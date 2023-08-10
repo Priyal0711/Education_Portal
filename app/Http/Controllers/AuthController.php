@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Access_type;
 
 
 class AuthController extends Controller
@@ -30,10 +31,13 @@ class AuthController extends Controller
     
     //register
     public function register_view()
-    {
-        return view('auth.register');
-        
-    }
+{
+    // Fetch the access types from the database or any other source
+    $accessTypes = Access_type::all(); // Replace "AccessType" with your actual model name if needed
+
+    return view('auth.register', compact('accessTypes'));
+}
+
     public function register(Request $request)
     {
         $request->validate([
@@ -42,6 +46,7 @@ class AuthController extends Controller
             'password' => 'required|min:3|confirmed',
             'mobile' => 'required|min:10',
             'city' => 'required',
+            'access_type'=> 'required'
 
 
         ]);
@@ -52,6 +57,8 @@ class AuthController extends Controller
             'password' => \Hash::make($request->password),
             'mobile' => $request->mobile,
             'city' => $request->city,
+            'access_type'=> $request->access_type
+            
 
 
         ]);

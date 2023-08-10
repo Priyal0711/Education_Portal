@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('mobile');
-            $table->string('city');  
+            $table->string('city'); 
+            $table->string('access_type'); 
+
+
             $table->rememberToken();
             $table->timestamps();
         });

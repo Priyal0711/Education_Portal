@@ -2,17 +2,13 @@
 <html>
 <head>
     <title>Welcome Page</title>
-    <!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome Page</title>
     <style>
-        /* Add your CSS styling here */
+        
         body {
             font-family: Arial, sans-serif;
         }
 
-        h1 {
+        h2 {
             color: #007bff;
         }
 
@@ -95,10 +91,12 @@
     </style>
 
 
-       
+    
 </head>
 <body>
-    <h1>Welcome: {{Auth::user()->name}}</h1>
+    <h2>Welcome: {{Auth::user()->name}}<br>Role: 
+        </h2>
+  
 
     <div class="container">
         <div class="header">
@@ -117,16 +115,26 @@
         <button> <a href="{{ route('subject.show') }}" style="color:white">Subject</a> </button>
         <button> <a href="{{ route('standard.show') }}" style="color:white">Standard</a> </button>
         
+
+   
+    
+    {{-- @if(session('access_type') == "admin" || session('access_type') == "teacher") --}}
         <div class="dropdown">
             <button class="dropbtn">Other Operations</button>
             <div class="dropdown-content">
-                    <button> <a href="{{ route('assign_chapter.show') }}" style="color:white">Assign Chapter to Subject</a> </button>
-                    <button> <a href="{{ route('assign_subject.show') }}" style="color:white">Assign Subject to Standard</a> </button>
-                    <button> <a href="{{ route('assign_student.show') }}" style="color:white">Assign Student to Standard</a> </button>
+                <button> <a href="{{ route('assign_chapter.show') }}">Assign Chapter to Subject</a> </button>
+                <button> <a href="{{ route('assign_subject.show') }}">Assign Subject to Standard</a> </button>
+                <button> <a href="{{ route('assign_student.show') }}">Assign Student to Standard</a> </button>
             </div>
         </div>
-        
+    {{-- @endif  --}}
+    
+        </div>    
     </div>
+        
+    
+    
+</div>
 
 
 </body>

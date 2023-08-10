@@ -3,7 +3,7 @@
 @section('title', 'Assign Student to Standard')
 
 @section('content')
-    <h4 style="text-align: center">Assign Student to Standard</h4><br>
+    <h1 style="text-align: center">Assign Student to Standard</h1><br>
     <form style="text-align: center" method="POST" action="{{ route('assign_student.store')}}">
         @csrf
         <label>Standard:</label>
@@ -16,7 +16,7 @@
         <label>Student:</label>
         <select name="student" required>
             @foreach ($students as $stud)
-                <option value="{{ $stud->user_id }}">{{ $stud->first_name }}</option>
+                <option value="{{ $stud->user_id }}">{{ $stud->name }}</option>
             @endforeach
         </select><br><br>
 

@@ -8,7 +8,7 @@
         <div class="card">
             <div style="display: flex; justify-content: center;" class="card-header"><h1>Register</h1></div>
              <div class="card-body">
-                <form action="{{ route('register') }}" method="post">
+                <form action="{{ route('user.store') }}" method="post">
                     @csrf
                     <div class="mb-3 row">
                         <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
@@ -62,8 +62,19 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
+                        <label for="access_type" class="col-md-4 col-form-label text-md-end text-start">Select Access Type:</label>
+                        <div class="col-md-6">
+                            <select name="access_type" id="access_type" class="form-control">
+                                @foreach ($accessTypes as $access)
+                                    <option value="{{ $access->id }}">{{ $access->access_type }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
                         <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Register">
                     </div>
+                    
                     <div style="display: flex; justify-content: center;">
                         <h6>Already registered?</h6>
                         <a href="{{ route('login') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Login</a>

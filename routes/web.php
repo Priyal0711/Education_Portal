@@ -8,6 +8,11 @@ use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\Assign_Chapter_Controller;
 use App\Http\Controllers\Assign_Subject_Controller;
 use App\Http\Controllers\Assign_Student_Controller;
+use App\Models\Access_type;
+use App\Models\User_access_type;
+use App\Models\User;
+use App\Http\Requests\DataRequest;
+
 
 
 Route::get('/', function () {
@@ -15,11 +20,25 @@ Route::get('/', function () {
 });
 
 
+Route::post('/user',function (DataRequest $request) {
+    $data = User::create($request->Validated());
+
+    $user_access_type = new User_access_type();
+    $user_access_type->user_id = $data->id;
+    // dd($user_access_type);  
+    $user_access_type->user_access_id = $request->input('access_type');
+    // dd($user_access_type);      
+    $user_access_type->save();
+
+    return view('auth.login')
+    ->with('success', 'Registered Successfully');
+})->name('user.store');
+
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login'); 
 
 Route::get('register', [AuthController::class, 'register_view'])->name('register');
-Route::post('register', [AuthController::class, 'register'])->name('register'); 
+// Route::post('register', [AuthController::class, 'register'])->name('register'); 
 
 Route::get('adduser', [AuthController::class, 'adduser_view'])->name('adduser');
 Route::post('adduser', [AuthController::class, 'adduser'])->name('adduser');
@@ -73,7 +92,7 @@ Route::get('/chapter/edit/{id}', [ChapterController::class, 'edit'])->name('chap
 Route::get('/chapter/display/{id}', [ChapterController::class, 'display'])->name('chapter.display');
 Route::delete('/chapter/delete/{id}', [ChapterController::class, 'delete'])->name('chapter.delete');
 
-//assign chapter to subjects
+//assign
 Route::get('/assign_chapter', [Assign_Chapter_Controller::class, 'index'])->name('assign_chapter.show');
 Route::post('/assign_chapter', [Assign_Chapter_Controller::class, 'assign'])->name('assign_chapter.store');
 

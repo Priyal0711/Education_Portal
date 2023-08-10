@@ -15,6 +15,7 @@ class Standard extends Model
     }
     public function students()
     {
-        return $this->belongsToMany(Student::class, 'standard_student');
+        return $this->belongsToMany(User::class, 'standard_student', 'standard_id', 'student_id');
     }
+   
 }
