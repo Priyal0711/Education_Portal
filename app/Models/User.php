@@ -55,11 +55,6 @@ class User extends Authenticatable
         
         return $this->hasMany(UserAccessType::class);
     }
-    public function accesses()
-    {
-        return $this->hasMany(User_Access::class, 'user_id');
-    }
 }
-
 
 

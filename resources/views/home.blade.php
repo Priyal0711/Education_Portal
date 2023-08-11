@@ -94,9 +94,12 @@
     
 </head>
 <body>
-    <h2>Welcome: {{Auth::user()->name}}<br>Role: 
-        </h2>
-  
+    <h2>Welcome: {{ Auth::user()->name }}</h2>
+    @if (Auth::user()->userAccess)
+        <p>Role: {{ Auth::user()->userAccess->access_type }}</p>
+    @endif
+
+    
 
     <div class="container">
         <div class="header">
@@ -118,24 +121,25 @@
 
    
     
-    {{-- @if(session('access_type') == "admin" || session('access_type') == "teacher") --}}
+        @php
+        $accessType = Auth::user_access()->userAccess->access_type;
+    @endphp
+    
+    @if($accessType == "admin" || $accessType == "teacher")
         <div class="dropdown">
             <button class="dropbtn">Other Operations</button>
             <div class="dropdown-content">
-                <button> <a href="{{ route('assign_chapter.show') }}">Assign Chapter to Subject</a> </button>
-                <button> <a href="{{ route('assign_subject.show') }}">Assign Subject to Standard</a> </button>
-                <button> <a href="{{ route('assign_student.show') }}">Assign Student to Standard</a> </button>
+                <button><a href="{{ route('assign_chapter.show') }}">Assign Chapter to Subject</a></button>
+                <button><a href="{{ route('assign_subject.show') }}">Assign Subject to Standard</a></button>
+                <button><a href="{{ route('assign_student.show') }}">Assign Student to Standard</a></button>
             </div>
         </div>
-    {{-- @endif  --}}
+    @endif
     
-        </div>    
-    </div>
-        
-    
-    
+    @if($accessType == "student")
+        <!-- Display a message or take appropriate action for students -->
+        <p>You do not have permission to perform these operations.</p>
+    @endif
 </div>
-
-
 </body>
 </html>
