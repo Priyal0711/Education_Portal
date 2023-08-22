@@ -8,31 +8,13 @@ use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\Assign_Chapter_Controller;
 use App\Http\Controllers\Assign_Subject_Controller;
 use App\Http\Controllers\Assign_Student_Controller;
-use App\Models\Access_type;
-use App\Models\User_access_type;
-use App\Models\User;
-use App\Http\Requests\DataRequest;
-
-
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-Route::post('/user',function (DataRequest $request) {
-    $data = User::create($request->Validated());
-
-    $user_access_type = new User_access_type();
-    $user_access_type->user_id = $data->id;
-    // dd($user_access_type);  
-    $user_access_type->user_access_id = $request->input('access_type');
-    // dd($user_access_type);      
-    $user_access_type->save();
-
-    return view('auth.login')
-    ->with('success', 'Registered Successfully');
-})->name('user.store');
+Route::post('/user', [AuthController::class, 'register'])->name('user.store');
 
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login'); 

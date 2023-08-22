@@ -5,6 +5,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Access_type;
+use App\Mail\WelcomeEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 
 class AuthController extends Controller
@@ -32,8 +35,7 @@ class AuthController extends Controller
     //register
     public function register_view()
 {
-    // Fetch the access types from the database or any other source
-    $accessTypes = Access_type::all(); // Replace "AccessType" with your actual model name if needed
+    $accessTypes = Access_type::all(); 
 
     return view('auth.register', compact('accessTypes'));
 }
@@ -47,28 +49,28 @@ class AuthController extends Controller
             'mobile' => 'required|min:10',
             'city' => 'required',
             'access_type'=> 'required'
-
-
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => \Hash::make($request->password),
             'mobile' => $request->mobile,
             'city' => $request->city,
-            'access_type'=> $request->access_type
-            
-
-
+            'access_type' => $request->access_type
         ]);
         
+        
+        Mail::to($user->email)->send(new WelcomeEmail());
+        
+        return redirect('login');
+    
         //login user
-        if(\Auth::attempt($request->only('email','password')))
-        {
-            return redirect('home');
-        }
-        return redirect('register')->withError('Error');
+        // if(\Auth::attempt($request->only('email','password')))
+        // {
+        //     return redirect('home');
+        // }
+        // return redirect('register')->withError('Error');
     }
     public function adduser_view()
     {
